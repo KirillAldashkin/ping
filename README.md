@@ -1,2 +1,2 @@
-## Ping
+# Ping
 Don't mind
