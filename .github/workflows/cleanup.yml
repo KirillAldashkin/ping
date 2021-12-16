@@ -1,0 +1,21 @@
+name: Run cleanup utility
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "00 12 * * *"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+    - name: Build
+      run: dotnet build
+      working-directory: RunsCleanUtility
+    - name: Run
+      env:
+        UTIL_TOKEN: ${{ secrets.UTIL_TOKEN }}
+      run: ./bin/Debug/net6.0/RunsCleanUtility.dll KirillAldashkin/ping $UTIL_TOKEN
